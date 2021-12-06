@@ -1,0 +1,9 @@
+*.txt
+libft.a
+test*
+*.swp
+*.swo
+main*
+*.o
+a.out
+libft.so
