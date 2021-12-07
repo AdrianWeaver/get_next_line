@@ -6,13 +6,13 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/07 12:09:52 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/07 15:50:25 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdlib.h>
-#include "../../holy1/libft/libft.h"
+#include "get_next_line.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -25,10 +25,19 @@ int	ft_strlen_custom(char *memory)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (memory[i] != 0 && memory[i] != '\n')
 		i++;
 	return (i);
+}
+
+void	*ft_get_end(char *memory)
+{
+	while (*memory && *memory != '\n')
+		memory++;
+	if (*memory == '\n')
+		return (++memory);
+	return (memory);
 }
 
 void	*ft_getline(char *memory)
@@ -37,14 +46,17 @@ void	*ft_getline(char *memory)
 	char	*line;
 
 	i = 0;
-	line = malloc(sizeof(*line) * ft_strlen_custom(memory) + 1);
+	line = malloc(sizeof(*line) * ft_strlen_custom(memory) + 2);
 	if (line == 0)
 		return (0);
-	while (memory[i] != '\n')
+	while (memory[i] != '\n' && memory[i + 1] != '\0')
 	{
 		line[i] = memory[i];
 		i++;
 	}
+	line[i] = memory[i];
+	i++;
+	line[i] = 0;
 	return (line);
 }
 
@@ -55,24 +67,30 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	int			bytes_read;
 
+	bytes_read = 1;
 	buffer = malloc(sizeof(*buffer) *(BUFFER_SIZE + 1));
 	if (buffer == 0)
 		return (0);
-	while (bytes_read != 0)
+	while (bytes_read > 0 && ft_strchr(memory, '\n') == 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytes_read] = 0;
 		memory = ft_strjoin(memory, buffer);
 	}
 	line = ft_getline(memory);
 	free(buffer);
+	memory = ft_get_end(memory);
 	return (line);
 }
 
 int	main(int ac, char **av)
 {
+	int		i;
 	int		fd;
+	char	*str;
 
 	(void)ac;
+	i = 0;
 	fd = open(av[1], O_RDONLY);
 	printf("%d\n", fd);
 	if (fd == -1)
@@ -80,7 +98,12 @@ int	main(int ac, char **av)
 		printf("le fichier n'a pas pu etre ouvert");
 		return (0);
 	}
-	printf("ft_get_next_line renvoie : %s\n", get_next_line(fd));
-	printf("ft_get_next_line renvoie : %s\n", get_next_line(fd));
+	while (i < 100)
+	{
+		str = get_next_line(fd);
+		printf("%s", str);
+		free(str);
+		i++;
+	}
 	return (0);
 }
