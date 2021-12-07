@@ -6,7 +6,7 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/07 15:50:25 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/07 22:29:34 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	i = 0;
-	fd = open(av[1], O_RDONLY);
+	fd = open("toto.txt", O_RDONLY);
 	printf("%d\n", fd);
 	if (fd == -1)
 	{
