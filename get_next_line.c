@@ -6,7 +6,7 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/07 22:29:34 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/07 22:39:44 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,27 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(int ac, char **av)
-{
-	int		i;
-	int		fd;
-	char	*str;
-
-	(void)ac;
-	i = 0;
-	fd = open("toto.txt", O_RDONLY);
-	printf("%d\n", fd);
-	if (fd == -1)
-	{
-		printf("le fichier n'a pas pu etre ouvert");
-		return (0);
-	}
-	while (i < 100)
-	{
-		str = get_next_line(fd);
-		printf("%s", str);
-		free(str);
-		i++;
-	}
-	return (0);
-}
+//int	main(int ac, char **av)
+//{
+	//int		i;
+	//int		fd;
+	//char	*str;
+//
+	//(void)ac;
+	//i = 0;
+	//fd = open("toto.txt", O_RDONLY);
+	//printf("%d\n", fd);
+	//if (fd == -1)
+	//{
+		//printf("le fichier n'a pas pu etre ouvert");
+		//return (0);
+	//}
+	//while (i < 100)
+	//{
+		//str = get_next_line(fd);
+		//printf("%s", str);
+		//free(str);
+		//i++;
+	//}
+	//return (0);
+//}
