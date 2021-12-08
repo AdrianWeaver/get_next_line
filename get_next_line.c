@@ -6,7 +6,7 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/08 17:47:12 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/08 19:00:20 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*ft_getline(char *memory)
 
 char	*get_next_line(int fd)
 {
-	static char	*memory = "";
+	static char	memory[BUFFER_SIZE + 1];
 	char		buffer[BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes_read;
@@ -74,16 +74,12 @@ char	*get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (fd == -1 || (bytes_read == 0 && !*memory))
-		{
 			return (0);
-		}
 		buffer[bytes_read] = 0;
-		memory = ft_strjoin(memory, buffer);
+		ft_strcat(memory, buffer);
 	}
 	line = ft_getline(memory);
-	memory = ft_get_end(memory);
-	if (ft_strchr(line, '\n') == 0)
-		free(memory);
+	ft_strcpy(memory, ft_get_end(memory));
 	return (line);
 }
 
