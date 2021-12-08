@@ -6,7 +6,7 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/08 16:57:13 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/08 17:47:12 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_strlen_custom(char *memory)
 	i = 0;
 	while (memory[i] != 0 && memory[i] != '\n')
 		i++;
-	if (i < 0 && memory[i - 1] == '\n')
+	if (i > 0 && memory[i - 1] == '\n')
 		i++;
 	return (i);
 }
