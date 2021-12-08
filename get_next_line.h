@@ -6,7 +6,7 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:50:34 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/07 22:43:50 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/08 11:45:46 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ char	*get_next_line(int fd);
 #  define FT_STRLEN
 
 int		ft_strlen(char *str);
+
+# endif
+
+# ifndef FT_STRCPY
+#  define FT_STRCPY
+
+char	*ft_strcpy(char *dest, char *src);
 
 # endif
 #endif

@@ -6,13 +6,13 @@
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:39:08 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/07 22:15:20 by aweaver          ###   ########.fr       */
+/*   Updated: 2021/12/08 11:44:58 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(const char *c)
+int	ft_strlen(char *c)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *c)
 	return (i);
 }
 
-static char	*ft_strcpy(char *dest, const char *str)
+char	*ft_strcpy(char *dest, const char *str)
 {
 	size_t	i;
 
@@ -33,7 +33,7 @@ static char	*ft_strcpy(char *dest, const char *str)
 	return (dest);
 }
 
-static char	*ft_strcat(char *dest, const char *src)
+static char	*ft_strcat(char *dest, char *src)
 {	
 	ft_strcpy(dest + ft_strlen(dest), src);
 	return (dest);
@@ -52,7 +52,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	str_joined[0] = 0;
 	ft_strcat(str_joined, s1);
 	ft_strcat(str_joined, s2);
-	//free(s1);
 	return (str_joined);
 }
 
