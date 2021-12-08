@@ -5,60 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 13:20:00 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/06 16:11:31 by aweaver          ###   ########.fr       */
+/*   Created: 2021/12/02 15:39:08 by aweaver           #+#    #+#             */
+/*   Updated: 2021/12/08 17:02:27 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	ft_strlen(char *c)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != 0)
+	while (c[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strlcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = -1;
-	while (src[++i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
+	while (str[++i])
+		dest[i] = str[i];
+	dest[i] = 0;
+	return (dest);
 }
 
 char	*ft_strcat(char *dest, char *src)
-{
-	ft_strlcpy(dest + ft_strlen(dest), src);
+{	
+	ft_strcpy(dest + ft_strlen(dest), src);
 	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*joined;
+	char	*str_joined;
 
-	if (!s1)
+	str_joined = malloc(sizeof(*str_joined) * (ft_strlen(s1) + ft_strlen(s2)
+				+ 1));
+	if (str_joined == 0)
+		return (0);
+	str_joined[0] = 0;
+	ft_strcat(str_joined, s1);
+	if (!s1 == 0)
 	{
-		s1 = malloc(1);
+		s1 = malloc(sizeof(*s1) * 1);
 		*s1 = 0;
 	}
-	if (!s2)
-		return (0);
-	joined = malloc(sizeof(*joined) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (joined == 0)
+	free(s1);
+	ft_strcat(str_joined, s2);
+	return (str_joined);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (c >= 256)
+		c %= 256;
+	while (s[i])
 	{
-		free(s1);
-		free(s2);
-		return (0);
+		if (s[i] == c)
+			return ((char *)&s[i]);
+		i++;
 	}
-	joined[0] = 0;
-	ft_strcat(joined, s1);
-	ft_strcat(joined, s2);
+	if (s[i] == c)
+		return ((char *)&s[i]);
+	return (0);
 }
