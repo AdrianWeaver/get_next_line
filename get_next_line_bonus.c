@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aweaver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 16:11:32 by aweaver           #+#    #+#             */
-/*   Updated: 2021/12/09 18:16:12 by aweaver          ###   ########.fr       */
+/*   Created: 2021/12/09 18:20:12 by aweaver           #+#    #+#             */
+/*   Updated: 2021/12/09 18:34:33 by aweaver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdlib.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -72,30 +72,30 @@ void	*ft_getline(char *memory)
 
 char	*ft_make_magic(int fd, char *buffer, int bytes_read)
 {
-	static char	*memory;
+	static char	*memory[1024];
 	char		*line;
 
-	if (memory == 0)
+	if (memory[fd] == 0)
 	{
-		memory = malloc(sizeof(*memory) * (1));
-		if (memory == 0)
+		memory[fd] = malloc(sizeof(*memory[fd]) * (1));
+		if (memory[fd] == 0)
 			return (0);
-		memory[0] = 0;
+		memory[fd][0] = 0;
 	}
-	while (bytes_read > 0 && ft_strchr(memory, '\n') == 0)
+	while (bytes_read > 0 && ft_strchr(memory[fd], '\n') == 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if ((bytes_read == -1 || (bytes_read == 0 && *memory == 0)))
+		if ((bytes_read == -1 || (bytes_read == 0 && *memory[fd] == 0)))
 		{
 			free(buffer);
-			free(memory);
-			memory = NULL;
+			free(memory[fd]);
+			memory[fd] = NULL;
 			return (0);
 		}
 		buffer[bytes_read] = 0;
-		memory = ft_strjoin(memory, buffer);
+		memory[fd] = ft_strjoin(memory[fd], buffer);
 	}
-	line = ft_getline(memory);
+	line = ft_getline(memory[fd]);
 	return (line);
 }
 
